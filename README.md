@@ -1,4 +1,4 @@
-Instructions borrowed from @guyroyse: http://files.guyroyse.com/slides/javascript-vending-machine-kata.odp
+Instructions borrowed from @guyroyse's [Vending Machine Kata](http://files.guyroyse.com/slides/javascript-vending-machine-kata.odp)
 
 Display money inserted, SOLD OUT, and INSERT COINS
 
@@ -14,8 +14,6 @@ Item Bin holds purchased items
 
 Internal State
 
-Coin Bin contains coins
-sorted by type
+Coin Bin contains coins sorted by type
 
-Product Inventory
-products sorted by type
+Product Inventory products sorted by type
