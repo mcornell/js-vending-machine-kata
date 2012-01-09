@@ -1,6 +1,6 @@
 # Vending Machine Kata
 
-Instructions borrowed from @guyroyse's [Vending Machine Kata](http://files.guyroyse.com/slides/javascript-vending-machine-kata.odp)
+Instructions borrowed from @[guyroyse](https://github.com/guyroyse)'s [Vending Machine Kata](http://files.guyroyse.com/slides/javascript-vending-machine-kata.odp)
 
 ## Interface
 
