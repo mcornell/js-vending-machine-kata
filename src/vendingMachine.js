@@ -20,7 +20,7 @@ function VendingMachine() {
     }
 
     if (total > 0) {
-      this.display = total.toFixed(2);
+      this.display = '$' + total.toFixed(2);
     } else {
       this.display = 'INSERT COIN';
     }
