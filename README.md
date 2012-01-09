@@ -15,12 +15,19 @@ Shows the amounf of money inserted:
 * SOLD OUT - When no item available
 
 ### Coin Slot
+
 Accepts:
 
 * Nickels
 * Dimes
 * Quarters
 * Dollar Coin (I added this)
+
+Does Not Accept: (I also added this)
+
+* Penny
+* Half Dollar
+* Silver Dollar
 
 ### Coin Return Button
 
