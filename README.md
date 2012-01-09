@@ -1,7 +1,7 @@
 # Vending Machine Kata
 Instructions borrowed from @guyroyse's [Vending Machine Kata](http://files.guyroyse.com/slides/javascript-vending-machine-kata.odp)
 ## Interface
-###Display
+### Display
 Shows the amounf of money inserted:
 * $0.25
 * $0.10
@@ -28,5 +28,5 @@ Holds purchased items
 ## Internal State
 ### Coin Bin
 Contains coins sorted by type
-###Product Inventory
+### Product Inventory
 Products sorted by type
