@@ -152,12 +152,35 @@ describe("Vending Machine", function() {
       expect(vendingMachine.getInventory(Product.CHIPS)).toBe(10);
     });
 
-    it("Can vend items to the item bin", function() {
+    it("Can vend items and reduce its inventory", function() {
       vendingMachine.addInventory(Product.CHIPS, 10);
       vendingMachine.vend(Product.CHIPS);
       expect(vendingMachine.getInventory(Product.CHIPS)).toBe(9);
     });
 
+    it("Can vend items and place the item in the item bin", function() {
+      vendingMachine.addInventory(Product.CHIPS, 10);
+      vendingMachine.vend(Product.CHIPS);
+      expect(vendingMachine.itemBin).toContain(Product.CHIPS);
+    });
+
+  });
+  
+  describe("it allows a user to purchase an item and retrieve it from the bin", function() {
+    
+    beforeEach(function(){
+      vendingMachine.addInventory(Product.CHIPS, 10);
+      vendingMachine.addInventory(Product.SODA, 1);
+      vendingMachine.addInventory(Product.CANDY, 10);
+    });    
+    
+    it("Allows a user to buy a product using exact change", function() {
+      vendingMachine.insertCoin(Money.DOLLAR);
+      vendingMachine.insertCoin(Money.QUARTER);
+      vendingMachine.vend(Product.SODA);
+      expect(vendingMachine.itemBin).toContain(Product.SODA);
+      expect(vendingMachine.display).toBe("INSERT COIN");
+    });
   });
 
 

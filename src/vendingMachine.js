@@ -19,6 +19,7 @@ function VendingMachine() {
   this.coinsAccepted = [Money.DOLLAR, Money.QUARTER, Money.DIME, Money.NICKEL];
   this.coinReturn = [];
   this.coinsAdded = [];
+  this.amountInserted = 0;
   this.cashArray = this.coinsAccepted.map(function(coin) {
     return {value : coin, count : 0};
   });
@@ -27,6 +28,7 @@ function VendingMachine() {
   this.inventory = this.products.map(function() {
     return 0;
   });
+  this.itemBin = [];
 
 
   this.cash = function(coin) {
@@ -39,17 +41,23 @@ function VendingMachine() {
   }
 
   this.updateDisplay = function() {
-    var total = 0;
+    this.updateTotal();
 
+    if (this.amountInserted > 0) {
+      this.display = '$' + this.amountInserted.toFixed(2);
+    } else {
+      this.display = 'INSERT COIN';
+    }
+  };
+
+  this.updateTotal = function() {
+    var total = 0;
     for (var i = 0; i < this.coinsAdded.length; i++) {
       total += this.coinsAdded[i].value;
     }
 
-    if (total > 0) {
-      this.display = '$' + total.toFixed(2);
-    } else {
-      this.display = 'INSERT COIN';
-    }
+    this.amountInserted = total;
+
   };
 
   this.insertCoin = function(coin) {
@@ -90,10 +98,21 @@ function VendingMachine() {
 
   };
 
+  this.purchaseProduct = function(product) {
+    this.amountInserted = this.amountInserted - product.cost;
+    this.coinsAdded = [];
+  };
+
   this.vend = function(product) {
     var idx = this.products.indexOf(product);
     if (idx > -1) {
+      this.purchaseProduct(product);
+
       this.inventory[idx]--;
+
+      this.itemBin.push(product);
+
+      this.updateDisplay();
     }
   }
 }
