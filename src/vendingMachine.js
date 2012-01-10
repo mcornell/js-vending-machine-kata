@@ -8,13 +8,37 @@ var Money = {
   PENNY : {name : "Penny", value : 0.01}
 }
 
+var Product = {
+  CHIPS : {name : "Chips", cost : 0.75},
+  SODA : {name : "Soda", cost : 1.25},
+  CANDY : {name : "Candy", cost : 0.85}
+}
+
 function VendingMachine() {
   this.display = 'INSERT COIN';
   this.coinsAccepted = [Money.DOLLAR, Money.QUARTER, Money.DIME, Money.NICKEL];
   this.coinReturn = [];
   this.coinsAdded = [];
+  this.cashArray = this.coinsAccepted.map(function(coin) {
+    return {value : coin, count : 0};
+  });
 
-  this.updateDisplay = function () {
+  this.products = [Product.CHIPS, Product.SODA, Product.CANDY];
+  this.inventory = this.products.map(function() {
+    return 0;
+  });
+
+
+  this.cash = function(coin) {
+    var coinIndex = this.coinsAccepted.indexOf(coin);
+    if (coinIndex > 0) {
+      return this.cashArray[coinIndex].count;
+    } else {
+      return 0;
+    }
+  }
+
+  this.updateDisplay = function() {
     var total = 0;
 
     for (var i = 0; i < this.coinsAdded.length; i++) {
@@ -28,10 +52,11 @@ function VendingMachine() {
     }
   };
 
-  this.insertCoin = function (coin) {
-    if (this.coinsAccepted.indexOf(coin) > -1) {
-      console.log(coin);
+  this.insertCoin = function(coin) {
+    var coinIndex = this.coinsAccepted.indexOf(coin)
+    if (coinIndex > -1) {
       this.coinsAdded.push(coin);
+      this.cashArray[coinIndex].count++;
     } else {
       this.coinReturn.push(coin);
     }
@@ -39,11 +64,36 @@ function VendingMachine() {
     this.updateDisplay();
   };
 
-  this.returnCoins = function () {
+  this.returnCoins = function() {
     this.coinReturn = this.coinsAdded;
     this.coinsAdded = [];
     this.updateDisplay();
   };
 
+  this.addInventory = function(product, number) {
+    var idx = this.products.indexOf(product);
+    if (idx > -1) {
+      if (number == null || typeof number == 'undefined') {
+        number = 1;
+      }
+      this.inventory[idx] = this.inventory[idx] + number;
+    }
+  };
 
+  this.getInventory = function(product) {
+    var idx = this.products.indexOf(product);
+    if (idx > -1) {
+      return this.inventory[idx];
+    } else {
+      return 0;
+    }
+
+  };
+
+  this.vend = function(product) {
+    var idx = this.products.indexOf(product);
+    if (idx > -1) {
+      this.inventory[idx]--;
+    }
+  }
 }
