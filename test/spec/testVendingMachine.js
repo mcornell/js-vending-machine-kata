@@ -43,11 +43,39 @@ describe("Vending Machine", function () {
       expect(vendingMachine.display).toEqual("$1.40");
     });
 
-
     it("Does not accept pennies", function () {
       vendingMachine.insertCoin(Money.PENNY);
       expect(vendingMachine.coinReturn).toContain(Money.PENNY);
       expect(vendingMachine.display).toEqual("INSERT COIN");
+    });
+
+    it("Does not accept silver dollars", function () {
+      console.log("Silver");
+      vendingMachine.insertCoin(Money.SILVER_DOLLAR);
+      expect(vendingMachine.coinReturn).toContain(Money.SILVER_DOLLAR);
+      expect(vendingMachine.display).toEqual("INSERT COIN");
+      console.log("End Silver");
+    });
+
+    it("Does not accept half dollars", function () {
+      vendingMachine.insertCoin(Money.HALF_DOLLAR);
+      expect(vendingMachine.coinReturn).toContain(Money.HALF_DOLLAR);
+      expect(vendingMachine.display).toEqual("INSERT COIN");
+    });
+
+    it("Does not increment the amount entered when coins it does not accept are entered", function () {
+      vendingMachine.insertCoin(Money.NICKEL);
+      vendingMachine.insertCoin(Money.QUARTER);
+      vendingMachine.insertCoin(Money.HALF_DOLLAR);
+      vendingMachine.insertCoin(Money.SILVER_DOLLAR);
+      expect(vendingMachine.display).toEqual("$0.30");
+    });
+
+    it("Returns multiple unaccepted coins to the coin return", function () {
+      vendingMachine.insertCoin(Money.HALF_DOLLAR);
+      vendingMachine.insertCoin(Money.SILVER_DOLLAR);
+      expect(vendingMachine.coinReturn).toContain(Money.HALF_DOLLAR);
+      expect(vendingMachine.coinReturn).toContain(Money.SILVER_DOLLAR);
     });
 
   });
@@ -67,13 +95,13 @@ describe("Vending Machine", function () {
       expect(vendingMachine.display).toEqual("INSERT COIN");
     });
 
-    it("contains no coins if the return coin button is pressed", function() {
+    it("contains no coins if the return coin button is pressed", function () {
       vendingMachine.insertCoin(Money.NICKEL);
       vendingMachine.returnCoins();
       expect(vendingMachine.coinsAdded.length).toBe(0);
     });
 
-    it("can return multiple coins", function() {
+    it("can return multiple coins", function () {
       vendingMachine.insertCoin(Money.NICKEL);
       vendingMachine.insertCoin(Money.DIME);
       vendingMachine.insertCoin(Money.QUARTER);

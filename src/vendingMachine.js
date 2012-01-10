@@ -1,9 +1,11 @@
 var Money = {
-  DOLLAR : 1.00,
-  QUARTER : 0.25,
-  DIME : 0.10,
-  NICKEL : 0.05,
-  PENNY : 0.01
+  DOLLAR : {name : "Dollar", value : 1.00},
+  SILVER_DOLLAR : {name : "Silver Dollar", value : 1.00},
+  HALF_DOLLAR : {name : "Half Dollar", value : 0.50},
+  QUARTER : {name : "Quarter", value : 0.25},
+  DIME : {name : "Dime", value : 0.10},
+  NICKEL : {name : "Nickel", value : 0.05},
+  PENNY : {name : "Penny", value : 0.01}
 }
 
 function VendingMachine() {
@@ -16,7 +18,7 @@ function VendingMachine() {
     var total = 0;
 
     for (var i = 0; i < this.coinsAdded.length; i++) {
-      total += this.coinsAdded[i];
+      total += this.coinsAdded[i].value;
     }
 
     if (total > 0) {
@@ -28,6 +30,7 @@ function VendingMachine() {
 
   this.insertCoin = function (coin) {
     if (this.coinsAccepted.indexOf(coin) > -1) {
+      console.log(coin);
       this.coinsAdded.push(coin);
     } else {
       this.coinReturn.push(coin);
@@ -36,7 +39,7 @@ function VendingMachine() {
     this.updateDisplay();
   };
 
-  this.returnCoins = function() {
+  this.returnCoins = function () {
     this.coinReturn = this.coinsAdded;
     this.coinsAdded = [];
     this.updateDisplay();
